@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kemal Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --card: rgba(18, 25, 51, 0.78);
+      --text: #e8ecff;
+      --muted: #aab4d6;
+      --line: rgba(255, 255, 255, 0.08);
+      --accent: #7c9cff;
+      --accent-2: #54d2ff;
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 156, 255, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(84, 210, 255, 0.12), transparent 25%),
+        linear-gradient(180deg, #090d1a 0%, #0b1020 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 120px 90px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(2px 2px at 240px 160px, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 340px 60px, rgba(255,255,255,0.5), transparent);
+      background-size: 400px 220px;
+      animation: drift 18s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(40px); }
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+      padding: 16px 20px;
+      backdrop-filter: blur(14px);
+      background: rgba(10, 14, 28, 0.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 34px;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    .hero-text {
+      animation: fadeUp 1s ease;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(124, 156, 255, 0.3);
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(124, 156, 255, 0.08);
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span {
+      color: var(--accent-2);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn-primary {
+      color: #09101d;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 30px rgba(84, 210, 255, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      padding: 28px;
+      backdrop-filter: blur(18px);
+      animation: floatY 4s ease-in-out infinite;
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .photo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(124, 156, 255, 0.5);
+      box-shadow: 0 0 0 8px rgba(124, 156, 255, 0.08);
+      background: #0e1530;
+    }
+
+    .mini-card {
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .mini-item {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    .section-title {
+      font-size: 30px;
+      margin-bottom: 18px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      animation: fadeUp 0.8s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124, 156, 255, 0.35);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background: rgba(124, 156, 255, 0.12);
+      color: var(--text);
+      border: 1px solid rgba(124, 156, 255, 0.25);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .project-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .project-title h3 {
+      font-size: 22px;
+    }
+
+    .badge {
+      font-size: 12px;
+      color: var(--accent-2);
+      border: 1px solid rgba(84, 210, 255, 0.28);
+      border-radius: 999px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+    .project-links {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .project-links a {
+      text-decoration: none;
+      color: var(--accent-2);
+      font-weight: bold;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 28px 0 38px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .hero-card {
+        max-width: 500px;
+        margin: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header class="container">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="eyebrow">Software Engineer • Java Developer • Future Full-Stack Engineer</div>
+        <h1>Hello, I’m <span>Kemal Abdujebar</span></h1>
+        <p>
+          I build clean, practical, and modern software solutions. I am passionate about Java,
+          Spring Boot, web development, and creating systems that solve real business problems.
+        </p>
+        <div class="buttons">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="photo-wrap">
+          <img class="photo" src="photo.jpeg" alt="Kemal profile photo" />
+        </div>
+        <div class="mini-card">
+          <div class="mini-item"><strong>Name:</strong> Kemal Abdujebar</div>
+          <div class="mini-item"><strong>Focus:</strong> Java, Spring Boot, Angular, MySQL</div>
+          <div class="mini-item"><strong>Goal:</strong> Remote work, freelancing, and software career growth</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-text">
+        I am a Computer Engineering graduate with a strong interest in full-stack development,
+        backend systems, and business technology. I enjoy turning ideas into useful digital products
+        and continuously improving my technical and professional skills.
+      </p>
+    </section>
+
+    <section id="skills">
+      <div class="card">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills">
+          <span class="tag">Java</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Angular</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Problem Solving</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="project-title">
+            <h3>E-Commerce Management System</h3>
+            <span class="badge">Full Stack</span>
+          </div>
+          <p class="section-text">
+            A business-focused application for managing products, customers, orders, and inventory
+            using Java, Spring Boot, and MySQL.
+          </p>
+          <div class="project-links">
+            <a href="#">Live Demo</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="project-title">
+            <h3>Student Management System</h3>
+            <span class="badge">Java App</span>
+          </div>
+          <p class="section-text">
+            A structured system to manage student records, course information, and academic data in
+            a clean and simple interface.
+          </p>
+          <div class="project-links">
+            <a href="#">Live Demo</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="project-title">
+            <h3>Tailoring Business Website</h3>
+            <span class="badge">Business Website</span>
+          </div>
+          <p class="section-text">
+            A website concept for showcasing clothing products, customer services, and digital brand
+            presence for a tailoring business.
+          </p>
+          <div class="project-links">
+            <a href="#">Live Demo</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="project-title">
+            <h3>Portfolio Website</h3>
+            <span class="badge">Personal Brand</span>
+          </div>
+          <p class="section-text">
+            A professional personal website to present my skills, experience, projects, and career
+            goals in a modern developer style.
+          </p>
+          <div class="project-links">
+            <a href="#">Live Demo</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="card">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-list">
+          <div><strong>Email:</strong> abdujebarkemal5@email.com</div>
+          <div><strong>GitHub:</strong> github.com/kemalabdujebar</div>
+          <div><strong>Location:</strong> Addis Ababa, Ethiopia</div>
+        </div>
+        <div class="project-links" style="margin-top: 20px;">
+          <a href="https://github.com/kemalabdujebar" target="_blank">Visit My GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>© 2026 Kemal Abdujebar. Designed with HTML and CSS.</p>
+  </footer>
+</body>
+</html>
